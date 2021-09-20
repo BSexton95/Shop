@@ -11,10 +11,21 @@ namespace Shop
     }
     class Game
     {
+        private Player _player;
+        private Shop _shop;
+        private bool gameOver;
+        private int _currentScene;
 
         public void Run()
         {
-            
+            Start();
+
+            while (!gameOver)
+            {
+                Update();
+            }
+
+            End();
         }
 
         private void Start()
