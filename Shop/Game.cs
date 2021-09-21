@@ -28,6 +28,9 @@ namespace Shop
             End();
         }
 
+        /// <summary>
+        /// Function used to initialize any starting values by default
+        /// </summary>
         private void Start()
         {
             gameOver = false;
@@ -35,23 +38,34 @@ namespace Shop
             InitializeItems();
         }
 
+        /// <summary>
+        /// Function is called every time the game loops
+        /// </summary>
         private void Update()
         {
-
+            DisplayCurrentScene();
+            Console.Clear();
         }
 
+        /// <summary>
+        /// Function is called before the application closes
+        /// </summary>
         private void End()
         {
-
+            Console.WriteLine("Thanks for shopping!");
+            Console.ReadKey();
         }
 
+        /// <summary>
+        /// Initializes every item in the shop
+        /// </summary>
         private void InitializeItems()
         {
-            //Sword 
+            //Initialized Sword name and cost 
             Item sword = new Item { 500g, "Sword" };
-            //Shield
+            //Initialized Shield name and cost
             Item shield = new Item { 10g, "Sheild" };
-            //Health Potion
+            //Initialized Health Potion name and cost
             Item healthPotion = new Item { 15g, "Health Potion" };
 
         }
@@ -124,7 +138,16 @@ namespace Shop
 
         private void DisplayCurrentScene()
         {
+            switch(_currentScene)
+            {
+                case 0:
+                    DisplayOpeningMenu();
+                    break;
 
+                case 1:
+                    DisplayShopMenu();
+                    break;
+            }
         }
 
         private void DisplayOpeningMenu()
@@ -135,8 +158,8 @@ namespace Shop
             //If player chooses to start Shooping...
             if (choice == 0)
             {
-                //...sets current scene to _____ and brings up the shop for player
-                _currentScene = ;
+                //...sets current scene to display shop menu
+                _currentScene = 1;
             }
             //If player chooses to load inventory...
             else if (choice == 1)
@@ -147,7 +170,7 @@ namespace Shop
                     Console.WriteLine("Load Successfull!");
                     Console.ReadKey();
                     Console.Clear();
-                    _currentScene = ;
+                    _currentScene = 0;
                 }
                 else
                 {
@@ -160,12 +183,16 @@ namespace Shop
 
         private string[] GetShopMenuOptions()
         {
-               
+            string[] shopMenuOptions = new string [_shop.GetItemNames().Length];
+
+
         }
 
         private void DisplayShopMenu()
         {
-
+           
+            //Asks player what they would like to purchase and displays all items
+            int choice = GetInput("What would you like to purchase?", );
         }
 
 

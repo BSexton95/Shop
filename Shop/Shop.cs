@@ -14,8 +14,9 @@ namespace Shop
             get { return _inventory; }
         }
 
-        public Shop(Item[] )
+        public Shop(Item[] inventory)
         {
+            _inventory = inventory;
 
         }
 

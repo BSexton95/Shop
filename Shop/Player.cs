@@ -19,9 +19,9 @@ namespace Shop
             get { return _inventory; }
         }
 
-        public Player(int )
+        public Player(int gold)
         {
-
+            _gold = gold;
         }
 
         public void Buy(Item )
@@ -31,7 +31,14 @@ namespace Shop
 
         public string[] GetItemNames()
         {
+            string[] itemNames = new string[_inventory.Length ];
 
+            for(int i = 0; i < _inventory.Length; i++)
+            {
+                itemNames[i] = _inventory[i].Name;
+            }
+
+            return itemNames;
         }
 
         public void Save(StreamWriter writer)
