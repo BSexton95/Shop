@@ -30,7 +30,9 @@ namespace Shop
 
         private void Start()
         {
-
+            gameOver = false;
+            _currentScene = 0;
+            InitalizeItems();
         }
 
         private void Update()
@@ -45,6 +47,12 @@ namespace Shop
 
         private void InitalizeItems()
         {
+            //Sword 
+            Item sword = new Item { 500g, "Sword" };
+            //Shield
+            Item shield = new Item { 10g, "Sheild" };
+            //Health Potion
+            Item healthPotion = new Item { 15g, "Health Potion" };
 
         }
 
@@ -152,7 +160,7 @@ namespace Shop
 
         private string[] GetShopMenuOptions()
         {
-            
+               
         }
 
         private void DisplayShopMenu()
