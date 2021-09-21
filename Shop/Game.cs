@@ -121,12 +121,38 @@ namespace Shop
 
         private void DisplayOpeningMenu()
         {
+            //Prints a greeting and asks player if they want to start or load
+            int choice = GetInput("Welcome to the RPG Shop Simulator! What would you like to do?", "Start Shopping", "Load Inventory");
 
+            //If player chooses to start Shooping...
+            if (choice == 0)
+            {
+                //...sets current scene to _____ and brings up the shop for player
+                _currentScene = ;
+            }
+            //If player chooses to load inventory...
+            else if (choice == 1)
+            {
+                //...lets player know if load was successfull or not
+                if(Load())
+                { 
+                    Console.WriteLine("Load Successfull!");
+                    Console.ReadKey();
+                    Console.Clear();
+                    _currentScene = ;
+                }
+                else
+                {
+                    Console.WriteLine("Load Failed!");
+                    Console.ReadKey(true);
+                    Console.Clear();
+                }
+            }
         }
 
         private string[] GetShopMenuOptions()
         {
-
+            
         }
 
         private void DisplayShopMenu()
