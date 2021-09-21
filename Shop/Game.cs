@@ -32,7 +32,7 @@ namespace Shop
         {
             gameOver = false;
             _currentScene = 0;
-            InitalizeItems();
+            InitializeItems();
         }
 
         private void Update()
@@ -45,7 +45,7 @@ namespace Shop
 
         }
 
-        private void InitalizeItems()
+        private void InitializeItems()
         {
             //Sword 
             Item sword = new Item { 500g, "Sword" };
