@@ -24,9 +24,19 @@ namespace Shop
             _gold = gold;
         }
 
-        public void Buy(Item )
+        public void Buy(Item item)
         {
+            string[] inventory = new string[_inventory.Length + 1];
+            int i;
 
+            for (i = 0; i < _inventory.Length; i++)
+            {
+               inventory[i] = _inventory[i];
+            }
+
+            inventory[i] = item;
+
+            
         }
 
         public string[] GetItemNames()

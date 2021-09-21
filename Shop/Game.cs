@@ -185,15 +185,25 @@ namespace Shop
         {
             string[] shopMenuOptions = new string [_shop.GetItemNames().Length];
 
+            for (int i = 0; i < _shop.GetItemNames().Length; i++)
+            {
+                shopMenuOptions[i] = _shop.GetItemNames()[i];
+            }
 
+            return shopMenuOptions;
         }
 
         private void DisplayShopMenu()
         {
-           
+            Console.WriteLine("Your Gold: " + _player.Gold);
+            Console.WriteLine("Your Inventory: ");
+
             //Asks player what they would like to purchase and displays all items
-            int choice = GetInput("What would you like to purchase?", );
+            int choice = GetInput("What would you like to purchase?", GetShopMenuOptions());
+
+
         }
+
 
 
     }
