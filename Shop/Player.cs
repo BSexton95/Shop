@@ -31,9 +31,11 @@ namespace Shop
               inventory[i] = _inventory[i];
             }
 
-            inventory[inventory.Length - 1] = item;
+            inventory[_inventory.Length] = item;
 
-            
+            _inventory = inventory;
+
+            _gold -= item.Cost;
         }
 
         public string[] GetItemNames()
@@ -53,17 +55,42 @@ namespace Shop
         public void Save(StreamWriter writer)
         {
             writer.WriteLine(_gold);
-            writer.WriteLine(_inventory);
+            writer.WriteLine(_inventory.Length);
+
+            for(int i = 0; i < _inventory.Length; i++)
+            {
+                writer.WriteLine(_inventory[i].Name);
+                writer.WriteLine(_inventory[i].Cost);
+            }
+
         }
 
         public bool Load(StreamReader reader)
         {
-            if (!int.TryParse(reader.ReadLine(), out _gold))
+            int inventoryLength = 0;
+
+            if (!int.TryParse(reader.ReadLine(), out inventoryLength))
             {
                 return false;
             }
 
-            
+            _inventory = new Item[inventoryLength];
+
+            int i = 0;
+
+            while(!reader.EndOfStream)
+            {
+                _inventory[i].Name = reader.ReadLine();
+
+                if (!int.TryParse(reader.ReadLine(), out _inventory[i].Cost))
+                {
+                    return false;
+                }
+
+                i++;
+
+            }
+
 
             return true;
         }

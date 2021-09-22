@@ -54,7 +54,7 @@ namespace Shop
         private void End()
         {
             Console.WriteLine("Thanks for shopping!");
-            Console.ReadKey();
+            Console.ReadKey(true);
         }
 
         /// <summary>
@@ -134,11 +134,38 @@ namespace Shop
         
         private void Save()
         {
+            //Create a new stream writer
+            StreamWriter writer = new StreamWriter("SaveData.txt");
 
+            _player.Save(writer);
+
+            writer.Close();
         }
 
         private bool Load()
         {
+            if(!File.Exists("SaveData.txt"))
+            {
+                return false;
+            }
+
+            StreamReader reader = new StreamReader("SaveData.txt");
+
+            int gold;
+
+            if(!int.TryParse(reader.ReadLine(), out gold))
+            {
+                return false;
+            }
+
+            _player = new Player(gold);
+
+            if(!_player.Load(reader))
+            {
+                return false;
+            }
+
+            reader.Close();
 
             return true;
         }
@@ -178,7 +205,7 @@ namespace Shop
                     Console.WriteLine("Load Successfull!");
                     Console.ReadKey();
                     Console.Clear();
-                    _currentScene = 0;
+                    _currentScene = 1;
                 }
                 else
                 {
@@ -197,9 +224,18 @@ namespace Shop
             {
                 shopMenuOptions[i] = _shop.GetItemNames()[i];
             }
-            
-            Console.WriteLine("4. Save Game");
-            Console.WriteLine("5. Exit Game");
+
+            string[] addedOptions = new string[shopMenuOptions.Length + 2];
+
+            for(int i = 0; i < shopMenuOptions.Length; i++)
+            {
+                addedOptions[i] = shopMenuOptions[i];
+            }
+
+            addedOptions[shopMenuOptions.Length] = "Save Game";
+            addedOptions[shopMenuOptions.Length + 1] = "Exit Game";
+
+            shopMenuOptions = addedOptions;
 
             return shopMenuOptions;
         }
@@ -207,30 +243,46 @@ namespace Shop
         private void DisplayShopMenu()
         {
             Console.WriteLine("Your Gold: " + _player.Gold);
-            Console.WriteLine("Your Inventory: " + _player.GetItemNames());
+            Console.WriteLine("Your Inventory: ");
+            Console.WriteLine("");
+
+            string[] playerInventory = _player.GetItemNames();
+
+            for (int i = 0; i < _player.GetItemNames().Length; i++)
+            {
+                Console.WriteLine(playerInventory[i]);
+            }
 
             //Asks player what they would like to purchase and displays all items
             int choice = GetInput("What would you like to purchase?", GetShopMenuOptions());
 
             if (choice == 0)
             {
+                Console.WriteLine("You have purchased a sword!");
                 _shop.Sell(_player, 0);
             }
             else if (choice == 1)
             {
+                Console.WriteLine("You have purchased a shield!");
                 _shop.Sell(_player, 1);
             }
             else if (choice == 2)
             {
+                Console.WriteLine("You have purchased a health potion!");
                 _shop.Sell(_player, 2);
             }
             else if (choice == 3)
             {
                 Save();
+                Console.WriteLine("Saved Game");
+                Console.ReadKey(true);
+                Console.Clear();
+                return;
             }
             else if (choice == 4)
             {
-                Console.WriteLine("Thanks for Shopping");
+                gameOver = true;
+                return;
             }
 
 
