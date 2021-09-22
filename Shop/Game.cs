@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace Shop
 {
@@ -61,6 +62,7 @@ namespace Shop
         /// </summary>
         private void InitializeItems()
         {
+            
             //Initialized Sword name and cost 
             Item sword = new Item { Name = "Sword", Cost = 500 };
             //Initialized Shield name and cost
@@ -129,7 +131,7 @@ namespace Shop
 
             return inputReceived;
         }
-        /*
+        
         private void Save()
         {
 
@@ -138,8 +140,9 @@ namespace Shop
         private bool Load()
         {
 
+            return true;
         }
-        */
+        
         private void DisplayCurrentScene()
         {
             switch(_currentScene)
@@ -164,6 +167,7 @@ namespace Shop
             {
                 //...sets current scene to display shop menu
                 _currentScene = 1;
+                _player = new Player(100);
             }
             //If player chooses to load inventory...
             else if (choice == 1)
@@ -215,6 +219,18 @@ namespace Shop
             else if (choice == 1)
             {
                 _shop.Sell(_player, 1);
+            }
+            else if (choice == 2)
+            {
+                _shop.Sell(_player, 2);
+            }
+            else if (choice == 3)
+            {
+                Save();
+            }
+            else if (choice == 4)
+            {
+                Console.WriteLine("Thanks for Shopping");
             }
 
 
