@@ -14,39 +14,37 @@ namespace Shop
             get { return _gold; }
         }
 
-        public Item[] Inventory
-        {
-            get { return _inventory; }
-        }
-
         public Player(int gold)
         {
             _gold = gold;
+            _inventory = new Item[0];
         }
-
+        
         public void Buy(Item item)
         {
-            string[] inventory = new string[_inventory.Length + 1];
-            int i;
 
-            for (i = 0; i < _inventory.Length; i++)
+            Item[] inventory = new Item[_inventory.Length + 1];
+
+            for (int i = 0; i < _inventory.Length; i++)
             {
-               inventory[i] = _inventory[i];
+              inventory[i] = _inventory[i];
             }
 
-            inventory[i] = item;
+            inventory[inventory.Length - 1] = item;
 
             
         }
 
         public string[] GetItemNames()
         {
-            string[] itemNames = new string[_inventory.Length ];
+            string[] itemNames = new string[_inventory.Length + 1];
 
             for(int i = 0; i < _inventory.Length; i++)
             {
                 itemNames[i] = _inventory[i].Name;
             }
+
+            
 
             return itemNames;
         }
@@ -60,5 +58,6 @@ namespace Shop
         {
 
         }
+        
     }
 }

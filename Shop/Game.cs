@@ -6,8 +6,8 @@ namespace Shop
 {
     public struct Item
     {
-        public int Cost;
         public string Name;
+        public int Cost;
     }
     class Game
     {
@@ -62,11 +62,15 @@ namespace Shop
         private void InitializeItems()
         {
             //Initialized Sword name and cost 
-            Item sword = new Item { 500g, "Sword" };
+            Item sword = new Item { Name = "Sword", Cost = 500 };
             //Initialized Shield name and cost
-            Item shield = new Item { 10g, "Sheild" };
+            Item shield = new Item { Name = "Sheild", Cost = 10 };
             //Initialized Health Potion name and cost
-            Item healthPotion = new Item { 15g, "Health Potion" };
+            Item healthPotion = new Item { Name = "Health Potion", Cost = 15 };
+
+            Item[] _inventory = new Item[] { sword, shield, healthPotion };
+
+            _shop = new Shop(_inventory);
 
         }
 
@@ -125,7 +129,7 @@ namespace Shop
 
             return inputReceived;
         }
-
+        /*
         private void Save()
         {
 
@@ -135,7 +139,7 @@ namespace Shop
         {
 
         }
-
+        */
         private void DisplayCurrentScene()
         {
             switch(_currentScene)
@@ -189,6 +193,9 @@ namespace Shop
             {
                 shopMenuOptions[i] = _shop.GetItemNames()[i];
             }
+            
+            Console.WriteLine("4. Save Game");
+            Console.WriteLine("5. Exit Game");
 
             return shopMenuOptions;
         }
@@ -196,10 +203,19 @@ namespace Shop
         private void DisplayShopMenu()
         {
             Console.WriteLine("Your Gold: " + _player.Gold);
-            Console.WriteLine("Your Inventory: ");
+            Console.WriteLine("Your Inventory: " + _player.GetItemNames());
 
             //Asks player what they would like to purchase and displays all items
             int choice = GetInput("What would you like to purchase?", GetShopMenuOptions());
+
+            if (choice == 0)
+            {
+                _shop.Sell(_player, 0);
+            }
+            else if (choice == 1)
+            {
+                _shop.Sell(_player, 1);
+            }
 
 
         }
