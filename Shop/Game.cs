@@ -64,11 +64,11 @@ namespace Shop
         {
             
             //Initialized Sword name and cost 
-            Item sword = new Item { Name = "Sword", Cost = 500 };
+            Item sword = new Item { Name = "Sword - 500g", Cost = 500 };
             //Initialized Shield name and cost
-            Item shield = new Item { Name = "Sheild", Cost = 10 };
+            Item shield = new Item { Name = "Sheild - 10g", Cost = 10 };
             //Initialized Health Potion name and cost
-            Item healthPotion = new Item { Name = "Health Potion", Cost = 15 };
+            Item healthPotion = new Item { Name = "Health Potion - 15g", Cost = 15 };
 
             //Initialize array
             Item[] _inventory = new Item[] { sword, shield, healthPotion };
