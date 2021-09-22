@@ -70,6 +70,7 @@ namespace Shop
             //Initialized Health Potion name and cost
             Item healthPotion = new Item { Name = "Health Potion", Cost = 15 };
 
+            //Initialize array
             Item[] _inventory = new Item[] { sword, shield, healthPotion };
 
             _shop = new Shop(_inventory);
@@ -132,44 +133,62 @@ namespace Shop
             return inputReceived;
         }
         
+        /// <summary>
+        /// Saves the game
+        /// </summary>
         private void Save()
         {
             //Create a new stream writer
             StreamWriter writer = new StreamWriter("SaveData.txt");
 
+            //Save player
             _player.Save(writer);
 
+            //Close writer when done saving
             writer.Close();
         }
 
+        /// <summary>
+        /// Loads the game
+        /// </summary>
+        /// <returns></returns>
         private bool Load()
         {
+            //If the file doesn't exist...
             if(!File.Exists("SaveData.txt"))
             {
+                //...return false
                 return false;
             }
-
+            
+            //Create a new reader to read from the text file
             StreamReader reader = new StreamReader("SaveData.txt");
 
             int gold;
 
+            //If the first line can't be convered into an integer...
             if(!int.TryParse(reader.ReadLine(), out gold))
             {
+                //...return false
                 return false;
             }
 
+            //Create a new instance of and try to load the player
             _player = new Player(gold);
-
             if(!_player.Load(reader))
             {
                 return false;
             }
 
+            //Close the reader and loading is finished
             reader.Close();
 
             return true;
         }
         
+        /// <summary>
+        /// Calls the appropriate functions based on the current scene
+        /// </summary>
         private void DisplayCurrentScene()
         {
             switch(_currentScene)
@@ -184,6 +203,9 @@ namespace Shop
             }
         }
 
+        /// <summary>
+        /// Displays the optening menu that allows the player to start or load game
+        /// </summary>
         private void DisplayOpeningMenu()
         {
             //Prints a greeting and asks player if they want to start or load
@@ -216,6 +238,10 @@ namespace Shop
             }
         }
 
+        /// <summary>
+        /// Function adds two extra options, save game and exit game, after displaying the shops items
+        /// </summary>
+        /// <returns>The new array that has save game and exit game options</returns>
         private string[] GetShopMenuOptions()
         {
             string[] shopMenuOptions = new string [_shop.GetItemNames().Length];
@@ -240,6 +266,9 @@ namespace Shop
             return shopMenuOptions;
         }
 
+        /// <summary>
+        /// Displays the players 
+        /// </summary>
         private void DisplayShopMenu()
         {
             Console.WriteLine("Your Gold: " + _player.Gold);
