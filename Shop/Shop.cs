@@ -41,19 +41,19 @@ namespace Shop
 
         }
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <returns>List of items in the shop</returns>
         public string[] GetItemNames()
         {
+            //Create a new array
             string[] itemNames = new string[_inventory.Length];
 
+            //Copy all the items in the shop into new array
             for (int i = 0; i < _inventory.Length; i++)
             {
                 itemNames[i] = _inventory[i].Name;
             }
 
+            //returns the list of all the items
             return itemNames;
         }
     }

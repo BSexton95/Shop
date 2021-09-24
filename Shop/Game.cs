@@ -244,25 +244,33 @@ namespace Shop
         /// <returns>The new array that has save game and exit game options</returns>
         private string[] GetShopMenuOptions()
         {
+            //Create new array
             string[] shopMenuOptions = new string [_shop.GetItemNames().Length];
 
+            //Copy everthing from old array to the new array
             for (int i = 0; i < _shop.GetItemNames().Length; i++)
             {
                 shopMenuOptions[i] = _shop.GetItemNames()[i];
             }
 
+            //Create another array with two extra slots
             string[] addedOptions = new string[shopMenuOptions.Length + 2];
 
+            //Again copy everthing from the previous array the a new array
             for(int i = 0; i < shopMenuOptions.Length; i++)
             {
                 addedOptions[i] = shopMenuOptions[i];
             }
 
+            //Add a save game to the array
             addedOptions[shopMenuOptions.Length] = "Save Game";
+            //Add an exit game to the array
             addedOptions[shopMenuOptions.Length + 1] = "Exit Game";
 
+            //Set the old array equal to the new array
             shopMenuOptions = addedOptions;
 
+            //Returns the list of all options in the shop
             return shopMenuOptions;
         }
 
@@ -285,31 +293,41 @@ namespace Shop
             //Asks player what they would like to purchase and displays all items
             int choice = GetInput("What would you like to purchase?", GetShopMenuOptions());
 
+            //If player buys a sword...
             if (choice == 0)
             {
+                //...shop sells player the sword
                 Console.WriteLine("You have purchased a sword!");
                 _shop.Sell(_player, 0);
             }
+            //If player buys shield...
             else if (choice == 1)
             {
+                //...shop sells player the sword
                 Console.WriteLine("You have purchased a shield!");
                 _shop.Sell(_player, 1);
             }
+            //If player buys a health potion...
             else if (choice == 2)
             {
+                //...shop sells the player the health potion
                 Console.WriteLine("You have purchased a health potion!");
                 _shop.Sell(_player, 2);
             }
+            //If player saves game...
             else if (choice == 3)
             {
+                //...the players gold and inventory is saved
                 Save();
                 Console.WriteLine("Saved Game");
                 Console.ReadKey(true);
                 Console.Clear();
                 return;
             }
+            //If player exits game...
             else if (choice == 4)
             {
+                //...Game over is set to true and game stops
                 gameOver = true;
                 return;
             }
